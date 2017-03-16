@@ -1,0 +1,3 @@
+[submodule "PSPacker"]
+	path = PSPacker
+	url = https://github.com/labmonkey42/PSPacker.git
