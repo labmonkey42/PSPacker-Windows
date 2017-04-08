@@ -1,4 +1,4 @@
-using module .\PSPacker\Machine.psm1
+using module PSPacker
 using module .\AutoUnattendSetupCommand.psm1
 using namespace System.Collections.Generic
 using namespace System.Xml

@@ -1,4 +1,4 @@
-using module .\PSPacker\Box.psm1
+using module PSPacker
 
 Class WindowsBox : Box
 {
