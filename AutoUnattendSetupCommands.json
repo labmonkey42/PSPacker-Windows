@@ -1,0 +1,56 @@
+{
+	"commands": [
+		{
+			"command": "%SystemRoot%\System32\cmd.exe /c %SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe -Command \"Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force\"",
+			"description": "Set Execution Policy 64 Bit",
+			"requiresUserInput": true
+		},
+		{
+			"command": "%SystemRoot%\SysWOW64\cmd.exe /c %SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe -Command \"Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force\"",
+			"description": "Set Execution Policy 32 Bit",
+			"requiresUserInput": true
+		},
+		{
+			"command": "%SystemRoot%\System32\reg.exe ADD HKLM\System\CurrentControlSet\Control\Network\NewNetworkWindowOff",
+			"description": "Network prompt",
+			"requiresUserInput": true
+		},
+		{
+			"command": "%SystemRoot%\System32\cmd.exe /c %SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe -Command \"Enable-PSRemoting -SkipNetworkProfileCheck -Force\"",
+			"description": "Enable PSRemoting"
+		},
+		{
+			"command": "%SystemRoot%\System32\reg.exe ADD HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ /v HideFileExt /t REG_DWORD /d 0 /f",
+			"description": "Show file extensions in Explorer"
+		},
+		{
+			"command": "%SystemRoot%\System32\reg.exe ADD HKCU\Console /v QuickEdit /t REG_DWORD /d 1 /f",
+			"description": "Enable QuickEdit mode"
+		},
+		{
+			"command": "%SystemRoot%\System32\reg.exe ADD HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ /v Start_ShowRun /t REG_DWORD /d 1 /f",
+			"description": "Show Run command in Start Menu"
+		},
+		{
+			"command": "%SystemRoot%\System32\reg.exe ADD HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ /v StartMenuAdminTools /t REG_DWORD /d 1 /f",
+			"description": "Show Administrative Tools in Start Menu"
+		},
+		{
+			"command": "%SystemRoot%\System32\reg.exe ADD HKLM\SYSTEM\CurrentControlSet\Control\Power\ /v HibernateFileSizePercent /t REG_DWORD /d 0 /f",
+			"description": "Zero Hibernation File"
+		},
+		{
+			"command": "%SystemRoot%\System32\reg.exe ADD HKLM\SYSTEM\CurrentControlSet\Control\Power\ /v HibernateEnabled /t REG_DWORD /d 0 /f",
+			"description": "Disable Hibernation Mode"
+		},
+		{
+			"command": "%SystemRoot%\System32\cmd.exe /c %SystemRoot%\System32\Wbem\wmic.exe useraccount where \"name='vagrant'\" set PasswordExpires=FALSE",
+			"description": "Disable password expiration for vagrant user"
+		},
+		{
+			"command": "%SystemRoot%\System32\cmd.exe /c %SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe -Command \"netsh advfirewall firewall set rule group=\\\"remote administration\\\" new enable=yes;netsh advfirewall firewall add rule name=\\\"Open Port 5985\\\" dir=in action=allow protocol=TCP localport=5985;winrm quickconfig -q;winrm quickconfig -transport:http;winrm set winrm/config '@{MaxTimeoutms=\\\"7200000\\\"};'winrm set winrm/config/winrs '@{MaxMemoryPerShellMB=\\\"0\\\"}';winrm set winrm/config/winrs '@{MaxProcessesPerShell=\\\"0\\\"}';winrm set winrm/config/winrs '@{MaxShellsPerUser=\\\"0\\\"}';winrm set winrm/config/service '@{AllowUnencrypted=\\\"true\\\"}';winrm set winrm/config/service/auth '@{Basic=\\\"true\\\"}';winrm set winrm/config/client/auth '@{Basic=\\\"true\\\"}';net stop winrm;sc.exe config winrm start= auto;net start winrm\"",
+			"description": "Configure and start WinRM",
+			"requiresUserInput": true
+		}
+	]
+}
